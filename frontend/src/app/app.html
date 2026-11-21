@@ -1,0 +1,299 @@
+
+<router-outlet></router-outlet>
+
+<main *ngIf="!router.url.startsWith('/admin')">
+
+  <!-- INICIO -->
+  <section class="inicio" aria-labelledby="titulo-inicio">
+    <div class="contenido">
+
+      <img
+        src="/assets/nexx-logo.png"
+        alt="NEXX Barber"
+        class="logo-inicio">
+
+      <h1 id="titulo-inicio">Bienvenido a <span>NEXX</span></h1>
+
+      <p>las reservas no se pueden editar, reserva con cuidado.<p>
+      <p> website desarrollado por : Yeison Riascos<p>
+        <p> wpp: 3217470711 </p>
+
+      <div class="botones-inicio">
+
+        <a href="#servicios" class="boton-principal">
+          Conoce mis servicios
+        </a>
+
+        <a href="#mi-trabajo" class="boton-secundario">
+          Conoce mi trabajo
+        </a>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- SERVICIOS -->
+  <section class="servicios" id="servicios">
+
+    <h2>Mis servicios</h2>
+
+    <p *ngIf="cargandoServicios">Cargando servicios...</p>
+
+    <p *ngIf="errorServicios">{{ errorServicios }}</p>
+
+    <div
+      class="lista-servicios"
+      *ngIf="!cargandoServicios && !errorServicios">
+
+      <article
+        class="servicio"
+        *ngFor="let servicio of servicios"
+        [class.seleccionado]="servicioSeleccionado === servicio._id">
+
+        <h3>{{ servicio.nombre }}</h3>
+
+        <p>
+          {{ servicio.precio | currency:'COP':'symbol-narrow':'1.0-0' }}
+        </p>
+
+        <button
+          class="boton-secundario"
+          (click)="seleccionarServicio(servicio._id)">
+
+          {{ servicioSeleccionado === servicio._id ? 'Seleccionado' : 'Seleccionar' }}
+
+        </button>
+
+      </article>
+
+      <p *ngIf="servicios.length === 0">
+        No hay servicios disponibles actualmente.
+      </p>
+
+    </div>
+
+    <button
+      class="boton reserva"
+      [disabled]="servicioSeleccionado === null"
+      (click)="abrirReservas()">
+
+      Reservar cita
+
+    </button>
+
+  </section>
+
+  <!-- RESERVAS -->
+  <section class="reservas" id="reservas">
+
+    <h2>Reserva tu cita</h2>
+
+    <p>Selecciona el día y horario que prefieras.</p>
+
+    <div *ngIf="servicioSeleccionado !== null">
+
+      <div class="servicio-elegido">
+
+        <h3>Servicio seleccionado</h3>
+
+        <p>{{ obtenerServicioSeleccionado()?.nombre }}</p>
+
+        <p>
+          {{ obtenerServicioSeleccionado()?.precio | currency:'COP':'symbol-narrow':'1.0-0' }}
+        </p>
+
+      </div>
+
+      <div class="selector-fechas">
+
+        <h3>Selecciona una fecha</h3>
+
+        <div class="lista-fechas">
+
+          <button
+            *ngFor="let dia of diasDisponibles"
+            class="opcion-fecha"
+            [class.seleccionado]="diaSeleccionado === dia.fecha"
+            (click)="seleccionarDia(dia.fecha)">
+
+            <span>{{ dia.dia }}</span>
+            <strong>{{ dia.numero }}</strong>
+            <span>{{ dia.mes }}</span>
+
+          </button>
+
+        </div>
+
+      </div>
+
+      <div class="selector-horarios" *ngIf="diaSeleccionado">
+
+        <h3>Selecciona una hora</h3>
+
+        <p *ngIf="cargandoDisponibilidad">
+          Consultando horarios disponibles...
+        </p>
+
+        <p *ngIf="errorDisponibilidad" class="error-reserva">
+          {{ errorDisponibilidad }}
+        </p>
+
+        <div
+          class="lista-horarios"
+          *ngIf="
+            !cargandoDisponibilidad &&
+            !errorDisponibilidad &&
+            horariosDisponibles.length > 0
+          ">
+
+          <button
+            *ngFor="let hora of horariosDisponibles"
+            class="opcion-hora"
+            [class.seleccionado]="horaSeleccionada === hora"
+            (click)="seleccionarHora(hora)">
+
+            {{ hora }}
+
+          </button>
+
+        </div>
+
+        <p
+          *ngIf="
+            !cargandoDisponibilidad &&
+            !errorDisponibilidad &&
+            horariosDisponibles.length === 0
+          ">
+
+          No hay horarios disponibles para esta fecha.
+
+        </p>
+
+      </div>
+
+      <button
+        class="boton reserva"
+        [disabled]="
+          !diaSeleccionado ||
+          !horaSeleccionada ||
+          cargandoDisponibilidad ||
+          horariosDisponibles.length === 0
+        "
+        (click)="confirmarReserva()">
+
+        Confirmar cita
+
+      </button>
+
+      <div class="formulario-cliente" *ngIf="mostrarFormulario">
+
+        <h3>Completa tus datos</h3>
+
+        <p>Necesitamos tus datos para registrar tu cita.</p>
+
+        <form (ngSubmit)="guardarReserva()" #formulario="ngForm">
+
+          <label for="nombre">Nombre</label>
+
+          <input
+            type="text"
+            id="nombre"
+            name="nombre"
+            [(ngModel)]="datosCliente.nombre"
+            placeholder="Tu nombre"
+            required
+            maxlength="50">
+
+          <label for="apellido">Apellido</label>
+
+          <input
+            type="text"
+            id="apellido"
+            name="apellido"
+            [(ngModel)]="datosCliente.apellido"
+            placeholder="Tu apellido"
+            required
+            maxlength="50">
+
+          <label for="telefono">Número de teléfono</label>
+
+          <input
+            type="tel"
+            id="telefono"
+            name="telefono"
+            [(ngModel)]="datosCliente.telefono"
+            placeholder="Tu número de teléfono"
+            required
+            minlength="7"
+            maxlength="15">
+
+          <button
+            type="submit"
+            class="boton reserva"
+            [disabled]="formulario.invalid || cargandoReserva">
+
+            {{ cargandoReserva ? 'Registrando reserva...' : 'Confirmar reserva' }}
+
+          </button>
+
+          <p *ngIf="formulario.invalid && formulario.touched">
+            Completa correctamente todos los campos.
+          </p>
+
+          <p *ngIf="cargandoReserva">
+            Estamos registrando tu cita. Espera un momento...
+          </p>
+
+          <p *ngIf="errorReserva" class="error-reserva">
+            {{ errorReserva }}
+          </p>
+
+        </form>
+
+      </div>
+
+      <div class="confirmacion" *ngIf="reservaConfirmada">
+
+        <h3>¡Reserva confirmada!</h3>
+
+        <p>Tu cita ha sido registrada correctamente.</p>
+        <p>Servicio: {{ obtenerServicioSeleccionado()?.nombre }}</p>
+        <p>Fecha: {{ diaSeleccionado }}</p>
+        <p>Hora: {{ horaSeleccionada }}</p>
+
+        <h4>Datos del cliente</h4>
+
+        <p>Nombre: {{ datosCliente.nombre }}</p>
+        <p>Apellido: {{ datosCliente.apellido }}</p>
+        <p>Teléfono: {{ datosCliente.telefono }}</p>
+
+      </div>
+
+    </div>
+
+    <div *ngIf="servicioSeleccionado === null">
+
+      <p>
+        Primero selecciona un servicio para continuar con tu reserva.
+      </p>
+
+    </div>
+
+  </section>
+
+  <!-- MI TRABAJO -->
+  <section class="mi-trabajo" id="mi-trabajo">
+
+    <h2>Conoce mi trabajo</h2>
+
+    <div class="galeria-trabajos">
+
+      <div class="trabajo"><p>Próximamente</p></div>
+      <div class="trabajo"><p>Próximamente</p></div>
+      <div class="trabajo"><p>Próximamente</p></div>
+
+    </div>
+
+  </section>
+
+</main>

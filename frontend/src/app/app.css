@@ -1,0 +1,605 @@
+
+:host {
+  display: block;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+main {
+  font-family: Arial, sans-serif;
+  background: #111;
+  color: white;
+}
+
+/* INICIO */
+
+.inicio {
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  padding: 20px;
+  background: #111;
+}
+
+.contenido h1 {
+  font-size: clamp(38px, 7vw, 65px);
+  margin-bottom: 15px;
+  font-weight: 700;
+}
+
+.contenido h1 span {
+  color: #c9a45c;
+}
+
+.contenido p {
+  color: #aaa;
+  font-size: 17px;
+  margin-bottom: 35px;
+}
+
+/* BOTONES */
+
+.boton {
+  display: inline-block;
+  background: #c9a45c;
+  color: #111;
+  text-decoration: none;
+  padding: 15px 28px;
+  font-weight: bold;
+  border-radius: 6px;
+  border: none;
+  cursor: pointer;
+  transition: .25s;
+  font-size: 14px;
+}
+
+.boton:hover:not(:disabled) {
+  background: #e0bd78;
+  transform: translateY(-2px);
+}
+
+button:disabled {
+  opacity: .35;
+  cursor: not-allowed;
+  transform: none;
+}
+
+/* SERVICIOS */
+
+.servicios {
+  min-height: 75vh;
+  padding: 100px 20px;
+  text-align: center;
+  background: #181818;
+}
+
+.servicios h2,
+.reservas h2 {
+  font-size: 35px;
+  margin-bottom: 45px;
+}
+
+.lista-servicios {
+  max-width: 550px;
+  margin: 0 auto 40px;
+}
+
+.servicio {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 23px 15px;
+  border: 1px solid #333;
+  border-radius: 10px;
+  margin-bottom: 13px;
+  gap: 15px;
+  transition: .25s;
+}
+
+.servicio.seleccionado {
+  border-color: #c9a45c;
+  background: #c9a45c0d;
+}
+
+.servicio-info {
+  text-align: left;
+}
+
+.servicio h3 {
+  font-size: 16px;
+  font-weight: 500;
+}
+
+.servicio p {
+  color: #c9a45c;
+  font-size: 17px;
+  font-weight: bold;
+  margin-top: 8px;
+}
+
+/* BOTON SELECCIONAR */
+
+.boton-seleccionar {
+  background: #252525;
+  color: #ddd;
+  border: 1px solid #444;
+  padding: 11px 18px;
+  border-radius: 7px;
+  cursor: pointer;
+  font-size: 12px;
+  font-weight: bold;
+  transition: .25s;
+  white-space: nowrap;
+}
+
+.boton-seleccionar:hover {
+  border-color: #c9a45c;
+  color: #c9a45c;
+}
+
+.boton-seleccionar.activo {
+  background: #c9a45c;
+  color: #111;
+  border-color: #c9a45c;
+}
+
+.reservar {
+  min-width: 190px;
+}
+
+/* RESERVAS */
+
+.reservas {
+  background: #111;
+  padding: 90px 20px;
+  text-align: center;
+  min-height: 70vh;
+}
+
+.subtitulo {
+  color: #999;
+  margin-top: -25px;
+  margin-bottom: 35px;
+}
+
+.resumen {
+  max-width: 550px;
+  margin: 0 auto 45px;
+  padding: 20px;
+  border: 1px solid #333;
+  border-radius: 10px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.resumen span {
+  color: #999;
+  font-size: 13px;
+}
+
+.resumen strong {
+  font-size: 14px;
+}
+
+.resumen .precio {
+  color: #c9a45c;
+}
+
+.titulo-seccion {
+  font-size: 17px;
+  margin: 35px 0 20px;
+}
+
+/* DIAS */
+
+.dias {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 12px;
+  max-width: 650px;
+  margin: auto;
+}
+
+.boton-dia {
+  width: 75px;
+  height: 95px;
+  background: #1c1c1c;
+  border: 1px solid #333;
+  color: white;
+  border-radius: 9px;
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 6px;
+  transition: .25s;
+}
+
+.boton-dia span {
+  color: #999;
+  font-size: 11px;
+  text-transform: capitalize;
+}
+
+.boton-dia strong {
+  font-size: 23px;
+}
+
+.boton-dia:hover,
+.boton-dia.activo {
+  background: #c9a45c;
+  border-color: #c9a45c;
+  color: #111;
+}
+
+.boton-dia.activo span {
+  color: #333;
+}
+
+/* HORARIOS */
+
+.horarios {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 12px;
+  max-width: 550px;
+  margin: auto;
+}
+
+.boton-hora {
+  background: #1c1c1c;
+  color: white;
+  border: 1px solid #444;
+  border-radius: 7px;
+  padding: 14px 22px;
+  cursor: pointer;
+  transition: .25s;
+}
+
+.boton-hora:hover,
+.boton-hora.activo {
+  background: #c9a45c;
+  border-color: #c9a45c;
+  color: #111;
+}
+
+/* CONFIRMACION */
+
+.confirmar {
+  margin-top: 40px;
+  min-width: 220px;
+}
+
+.confirmacion {
+  max-width: 450px;
+  margin: 35px auto 0;
+  padding: 25px;
+  border: 1px solid #c9a45c;
+  border-radius: 10px;
+  text-align: left;
+}
+
+.confirmacion h3 {
+  color: #c9a45c;
+  margin-bottom: 20px;
+}
+
+.confirmacion p {
+  margin: 12px 0;
+  font-size: 14px;
+}
+
+.confirmacion .aviso {
+  color: #999;
+  font-size: 12px;
+  line-height: 1.6;
+  margin-top: 20px;
+}
+
+/* MOVIL */
+
+@media (max-width: 480px) {
+  .servicios h2,
+  .reservas h2 {
+    font-size: 28px;
+  }
+
+  .servicio {
+    padding: 18px 10px;
+  }
+
+  .boton-seleccionar {
+    padding: 10px;
+    font-size: 11px;
+  }
+
+  .boton-dia {
+    width: 65px;
+    height: 85px;
+  }
+
+  .boton-hora {
+    padding: 12px 15px;
+  }
+}
+.botones-inicio {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 15px;
+  margin-top: 30px;
+}
+
+.botones-inicio a {
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  width: 230px;
+  min-height: 48px;
+  padding: 12px 20px;
+  border-radius: 8px;
+  text-decoration: none;
+  font-size: 14px;
+  font-weight: 600;
+  letter-spacing: 1px;
+  transition: all 0.3s ease;
+  box-sizing: border-box;
+}
+
+.botones-inicio .boton-principal {
+  background: #c5a253;
+  color: #111;
+  border: 1px solid #c5a253;
+}
+
+.botones-inicio .boton-principal:hover {
+  background: #dfbd70;
+  transform: translateY(-3px);
+}
+
+.botones-inicio .boton-secundario {
+  background: transparent;
+  color: #c5a253;
+  border: 1px solid #c5a253;
+}
+
+.botones-inicio .boton-secundario:hover {
+  background: #c5a253;
+  color: #111;
+  transform: translateY(-3px);
+}
+.reservas,
+.mi-trabajo {
+  min-height: 100vh;
+  width: 100%;
+  box-sizing: border-box;
+  padding: 80px 30px;
+}
+
+.reservas {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.mi-trabajo {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+/* CORRECCIÓN DE BOTONES NEXX */
+
+/* Botones de servicios */
+.servicio .boton-secundario {
+  background: #252525;
+  color: #ddd;
+  border: 1px solid #444;
+  padding: 11px 18px;
+  border-radius: 7px;
+  cursor: pointer;
+  font-size: 12px;
+  font-weight: bold;
+  transition: .25s;
+  white-space: nowrap;
+}
+
+.servicio .boton-secundario:hover {
+  border-color: #c9a45c;
+  color: #c9a45c;
+}
+
+.servicio.seleccionado .boton-secundario {
+  background: #c9a45c;
+  color: #111;
+  border-color: #c9a45c;
+}
+
+/* Botón reservar */
+.boton.reserva {
+  min-width: 190px;
+}
+
+/* Botones de fechas */
+.opcion-fecha {
+  width: 75px;
+  min-height: 95px;
+  background: #1c1c1c;
+  border: 1px solid #333;
+  color: white;
+  border-radius: 9px;
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 6px;
+  transition: .25s;
+}
+
+.opcion-fecha span {
+  color: #999;
+  font-size: 11px;
+  text-transform: capitalize;
+}
+
+.opcion-fecha strong {
+  font-size: 23px;
+}
+
+.opcion-fecha:hover,
+.opcion-fecha.seleccionado {
+  background: #c9a45c;
+  border-color: #c9a45c;
+  color: #111;
+}
+
+.opcion-fecha.seleccionado span {
+  color: #333;
+}
+
+/* Contenedores de fechas y horarios */
+.lista-fechas,
+.lista-horarios {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 12px;
+  max-width: 650px;
+  margin: 20px auto;
+}
+
+/* Botones de horarios */
+.opcion-hora {
+  background: #1c1c1c;
+  color: white;
+  border: 1px solid #444;
+  border-radius: 7px;
+  padding: 14px 22px;
+  cursor: pointer;
+  transition: .25s;
+}
+
+.opcion-hora:hover,
+.opcion-hora.seleccionado {
+  background: #c9a45c;
+  border-color: #c9a45c;
+  color: #111;
+}
+
+/* Botón confirmar */
+.reservas .boton.reserva {
+  margin-top: 35px;
+}
+
+/* Ajustes para móviles */
+@media (max-width: 480px) {
+  .opcion-fecha {
+    width: 65px;
+    min-height: 85px;
+  }
+
+  .opcion-hora {
+    padding: 12px 15px;
+  }
+
+  .servicio .boton-secundario {
+    padding: 10px;
+    font-size: 11px;
+  }
+}
+.logo-inicio {
+  display: block;
+  width: 280px;
+  max-width: 85%;
+  height: auto;
+  margin: 0 auto 25px;
+  object-fit: contain;
+}
+
+/* FORMULARIO DEL CLIENTE */
+.formulario-cliente {
+  margin-top: 30px;
+  padding: 25px;
+  border-radius: 12px;
+  background: #171717;
+  border: 1px solid #333;
+}
+
+.formulario-cliente h3 {
+  margin-bottom: 10px;
+}
+
+.formulario-cliente p {
+  margin-bottom: 20px;
+}
+
+.formulario-cliente form {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.formulario-cliente label {
+  font-weight: 600;
+  color: #fff;
+}
+
+.formulario-cliente input {
+  width: 100%;
+  padding: 13px 15px;
+  border: 1px solid #444;
+  border-radius: 8px;
+  background: #222;
+  color: #fff;
+  font-size: 15px;
+  outline: none;
+  box-sizing: border-box;
+  transition: border-color 0.2s ease;
+}
+
+.formulario-cliente input:focus {
+  border-color: #d6a84f;
+}
+
+.formulario-cliente input::placeholder {
+  color: #999;
+}
+
+/* BOTÓN DE CONFIRMAR RESERVA */
+.formulario-cliente .boton.reserva {
+  margin-top: 15px;
+  padding: 14px 20px;
+  border: none;
+  border-radius: 8px;
+  background: #d6a84f;
+  color: #111;
+  font-size: 16px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: background 0.2s ease, transform 0.2s ease;
+}
+
+.formulario-cliente .boton.reserva:hover:not(:disabled) {
+  background: #edc16b;
+  transform: translateY(-2px);
+}
+
+.formulario-cliente .boton.reserva:disabled {
+  background: #666;
+  color: #ccc;
+  cursor: not-allowed;
+  opacity: 0.6;
+}

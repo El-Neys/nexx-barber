@@ -1,0 +1,96 @@
+
+<div class="admin-container">
+
+  <header class="admin-header">
+    <div class="brand">
+      <h1>NEXX BARBER</h1>
+      <p>Panel administrativo</p>
+    </div>
+  </header>
+
+  <main class="admin-content">
+
+    <section class="section-header">
+      <h2>Reservas de clientes</h2>
+      <p>Listado de clientes y sus respectivas citas.</p>
+    </section>
+
+    <!-- Estado de carga -->
+    <div *ngIf="cargando" class="message">
+      Cargando reservas...
+    </div>
+
+    <!-- Mensaje de error -->
+    <div *ngIf="!cargando && error" class="message error">
+      {{ error }}
+    </div>
+
+    <!-- Sin reservas -->
+    <div
+      *ngIf="!cargando && !error && reservas.length === 0"
+      class="message"
+    >
+      No hay reservas registradas.
+    </div>
+
+    <!-- Tabla de reservas -->
+    <div
+      *ngIf="!cargando && !error && reservas.length > 0"
+      class="table-container"
+    >
+
+      <table>
+        <thead>
+          <tr>
+            <th>Cliente</th>
+            <th>Teléfono</th>
+            <th>Barbero</th>
+            <th>Servicio</th>
+            <th>Fecha</th>
+            <th>Hora</th>
+            <th>Estado</th>
+          </tr>
+        </thead>
+
+        <tbody>
+
+          <tr *ngFor="let reserva of reservas">
+
+            <td>
+              {{ reserva.cliente?.nombre || 'Sin nombre' }}
+            </td>
+
+            <td>
+              {{ reserva.cliente?.telefono || 'Sin teléfono' }}
+            </td>
+
+            <td>
+              {{ reserva.barbero?.nombre || 'Sin barbero' }}
+            </td>
+
+            <td>
+              {{ reserva.servicio?.nombre || 'Sin servicio' }}
+            </td>
+
+            <td>
+              {{ reserva.fechaHoraInicio | date:'dd/MM/yyyy':'America/Bogota':'es-CO' }}
+            </td>
+
+            <td>
+              {{ reserva.fechaHoraInicio | date:'hh:mm a':'America/Bogota':'es-CO' }}
+            </td>
+
+            <td>
+              {{ reserva.estado || 'Sin estado' }}
+            </td>
+
+          </tr>
+
+        </tbody>
+      </table>
+
+    </div>
+
+  </main>
+
+</div>
