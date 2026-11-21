@@ -14,9 +14,9 @@
 
       <h1 id="titulo-inicio">Bienvenido a <span>NEXX</span></h1>
 
-      <p>las reservas no se pueden editar, reserva con cuidado.<p>
-      <p> website desarrollado por : Yeison Riascos<p>
-        <p> wpp: 3217470711 </p>
+      <p>Las reservas no se pueden editar, reserva con cuidado.</p>
+      <p>Website desarrollado por: Yeison Riascos</p>
+      <p>WPP: 3217470711</p>
 
       <div class="botones-inicio">
 
@@ -185,9 +185,13 @@
 
       </button>
 
-      <div class="formulario-cliente" *ngIf="mostrarFormulario">
+      <!-- FORMULARIO DEL CLIENTE -->
+      <div
+        class="formulario-cliente"
+        *ngIf="mostrarFormulario"
+        aria-labelledby="titulo-formulario">
 
-        <h3>Completa tus datos</h3>
+        <h3 id="titulo-formulario">Completa tus datos</h3>
 
         <p>Necesitamos tus datos para registrar tu cita.</p>
 
@@ -196,6 +200,7 @@
           <label for="nombre">Nombre</label>
 
           <input
+            #campoNombre
             type="text"
             id="nombre"
             name="nombre"
@@ -252,6 +257,7 @@
 
       </div>
 
+      <!-- CONFIRMACIÓN -->
       <div class="confirmacion" *ngIf="reservaConfirmada">
 
         <h3>¡Reserva confirmada!</h3>

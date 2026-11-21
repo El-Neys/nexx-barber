@@ -1,10 +1,17 @@
 
-import { Component, ChangeDetectorRef } from '@angular/core';
+import {
+  Component,
+  ChangeDetectorRef,
+  ElementRef,
+  ViewChild
+} from '@angular/core';
+
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { Router, RouterOutlet } from '@angular/router';
 
 import { ServicioService, Servicio } from './services/servicio';
+
 import {
   ReservaService,
   NuevaReserva
@@ -18,6 +25,9 @@ import {
   styleUrl: './app.css'
 })
 export class App {
+
+  @ViewChild('campoNombre')
+  campoNombre!: ElementRef<HTMLInputElement>;
 
   servicios: Servicio[] = [];
 
@@ -230,6 +240,21 @@ export class App {
     this.mostrarFormulario = true;
     this.reservaConfirmada = false;
     this.errorReserva = '';
+
+    this.cdr.detectChanges();
+
+    setTimeout(() => {
+      const campo = this.campoNombre?.nativeElement;
+
+      if (campo) {
+        campo.scrollIntoView({
+          behavior: 'smooth',
+          block: 'center'
+        });
+
+        campo.focus({ preventScroll: true });
+      }
+    }, 0);
   }
 
   guardarReserva(): void {

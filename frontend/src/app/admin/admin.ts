@@ -1,6 +1,6 @@
 
 import { CommonModule } from '@angular/common';
-import { Component, OnInit, inject } from '@angular/core';
+import { Component, OnInit, inject, ChangeDetectorRef } from '@angular/core';
 import { Reserva, ReservaService } from '../services/reserva';
 
 @Component({
@@ -13,6 +13,7 @@ import { Reserva, ReservaService } from '../services/reserva';
 export class AdminComponent implements OnInit {
 
   private reservaService = inject(ReservaService);
+  private cdr = inject(ChangeDetectorRef);
 
   reservas: Reserva[] = [];
   cargando = true;
@@ -34,7 +35,8 @@ export class AdminComponent implements OnInit {
 
         console.log('Reservas cargadas:', respuesta);
         console.log('Cantidad de reservas:', this.reservas.length);
-        console.log('Contenido de reservas:', this.reservas);
+
+        this.cdr.markForCheck();
       },
 
       error: (error) => {
@@ -42,6 +44,8 @@ export class AdminComponent implements OnInit {
 
         this.error = 'No fue posible cargar las reservas.';
         this.cargando = false;
+
+        this.cdr.markForCheck();
       }
 
     });
