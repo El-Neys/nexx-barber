@@ -2,22 +2,33 @@
 import cors from 'cors';
 import express from 'express';
 import env from './config/env.js';
+
 import servicioRoutes from './routes/servicio.routes.js';
 import barberoRoutes from './routes/barbero.routes.js';
 import reservaRoutes from './routes/reserva.routes.js';
 
 const app = express();
-// Permitir solicitudes desde Angular
+
+// Orígenes autorizados: desarrollo y producción
+const origenesPermitidos = [
+  'http://localhost:4200',
+  process.env.FRONTEND_URL
+].filter(Boolean);
+
+// Configuración CORS
 app.use(cors({
-  origin: 'http://localhost:4200'
+  origin: origenesPermitidos
 }));
 
 // Middleware para recibir JSON
 app.use(express.json());
+
+// Rutas de la API
 app.use('/api/barberos', barberoRoutes);
 app.use('/api/reservas', reservaRoutes);
+app.use('/api/servicios', servicioRoutes);
 
-// Ruta de comprobación
+// Ruta de comprobación del servidor
 app.get('/api/health', (req, res) => {
   res.status(200).json({
     status: 'ok',
@@ -26,9 +37,6 @@ app.get('/api/health', (req, res) => {
     time: new Date().toISOString()
   });
 });
-
-// Rutas del módulo de servicios
-app.use('/api/servicios', servicioRoutes);
 
 // Rutas inexistentes
 app.use((req, res) => {
